@@ -1,0 +1,219 @@
+<md-whiteframe class="md-whiteframe-3dp"
+               style="max-width:1024px"
+               layout="column" layout-align="center center">
+
+    <div layout="row" flex layout-align="start center" style="width:100%">
+        <div class="md-title"> <a href="#/product">제품관리</a> >  {{title}}  </div>
+        <span flex></span>
+        <md-button class="md-raised" href="#/gates">목록</md-button>
+    </div>
+
+    <md-content style="width:100%;">
+        <form name="gateForm" ng-submit="action1Process()">
+            <md-button class="md-primary md-raised" type="submit"> {{action1}} </md-button>
+            <md-button class="md-warn md-raised" ng-click="action2Process()"> {{action2}} </md-button>
+
+            <md-toolbar style="   background-color: white; color: black; height: 32px; min-height:0px;">
+                <h2 class="md-toolbar-tools">
+                    <span flex> 기본 정보 및 폭별 단가 </span>
+                </h2>
+            </md-toolbar>
+            <hr style="margin:0px;"/>
+            <div layout="row" layout-xs="column" style="width:100%; padding:7px;">
+                <div flex="50" flex-xs="100" layout="column">
+                    <div layout="column" layout-align="start start">
+                        <label>모델 (mm)</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.barSize" type="text" placeholder="모델">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="column" layout-align="start start">
+                        <label>사이즈 (mm)</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.height" type="number" placeholder="높이">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="column" layout-align="start start">
+                    <label>형태</label>
+                    <div layout="row" layout-align="start start">
+                        <md-input-container class="md-block">
+                            <md-checkbox ng-model="gateObj.blacklist_yn" aria-label="isBlack">
+                                유럽형
+                            </md-checkbox>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <md-checkbox ng-model="gateObj.blacklist_yn" aria-label="isBlack">
+                                단열
+                            </md-checkbox>
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <md-checkbox ng-model="gateObj.blacklist_yn" aria-label="isBlack">
+                                유럽형 단열
+                            </md-checkbox>
+                        </md-input-container>
+                    </div>
+                    </div>
+                </div>
+
+                <div flex="50" flex-xs="100" layout="column">
+                    <div layout="column" layout-align="start start">
+                        <label>비규격</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.nonStandard" type="text" placeholder="비규격">
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                    <div style="height:84px;">
+                        <label> 원클릭 입력 </label>
+                        <md-radio-group ng-model="gateObj.published" layout="row" layout-align="start start">
+                            <md-radio-button value=true class="md-primary"> 사용 </md-radio-button>
+                            <md-radio-button value=false class="md-primary"> 사용안함 </md-radio-button>
+                        </md-radio-group>
+                    </div>
+
+                    <div layout="column" layout-align="start start">
+                        <label>NO</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.noNum" type="number" placeholder="Number">
+                            </md-input-container>
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.noPrefix" type="text" placeholder="Prefix">
+                            </md-input-container>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div layout="row" layout-xs="column" style="width:100%; padding:7px;">
+                <div flex layout="column">
+                    <div layout="row" layout-align="start start">
+                        <div>
+                            <label>바사이즈</label>
+                            <div layout="row" layout-align="start start">
+                                <md-input-container class="md-block">
+                                    <input ng-model="gateObj.barSize" type="number" placeholder="모델">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div>
+                            <label>&nbsp;</label>
+                            <div layout="row" layout-align="start start">
+                                <md-input-container class="md-block">
+                                    <input ng-model="gateObj.barSize" type="number" placeholder="모델">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div>
+                            <label>&nbsp;</label>
+                            <div layout="row" layout-align="start start">
+                                <md-input-container class="md-block">
+                                    <input ng-model="gateObj.barSize" type="number" placeholder="모델">
+                                </md-input-container>
+                            </div>
+                        </div>
+                        <div>
+                            <label>&nbsp;</label>
+                            <div layout="row" layout-align="start start">
+                                <md-input-container class="md-block">
+                                    <input ng-model="gateObj.barSize" type="number" placeholder="모델">
+                                </md-input-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div layout="row" layout-xs="column" style="width:100%; padding:7px;">
+                <md-input-container class="md-block">
+                    <label>비고</label>
+                    <textarea ng-model="gateObj.note" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+            <md-toolbar style="background-color:white; color:black;    height: 32px; min-height:0px;">
+                <h2 class="md-toolbar-tools">
+                    <span flex> 가격 적용일 및 옵션 가격 </span>
+                </h2>
+            </md-toolbar>
+            <hr style="margin:0px;"/>
+            <div layout="column" style="width:100%; padding:7px;">
+                <div layout-gt-xs="row" flex-gt-xs>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>단가: {{gateObj.orgPrice | number}}원</label>
+                        <input type="number" ng-model="gateObj.orgPrice">
+                    </md-input-container>
+                    <md-datepicker flex-gt-xs ng-model="gateObj.startDate" md-placeholder="Enter date">
+                    </md-datepicker>
+                </div>
+                <div layout="row" layout-align="start center" flex-gt-xs>
+                    <md-input-container class="md-block">
+                        <input ng-model="gateObj.tax" type="number" placeholder="부가세 별도 가격(원)">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input ng-model="gateObj.taxRate" type="number" placeholder=" 부가세(원)">
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div class="md-body-1"> 추가 옵션을 관리 하실수 있습니다. </div>
+            <md-button class="md-raised" ng-click="showOptions($event)">
+                옵션 관리
+            </md-button>
+
+            <md-content layout-padding>
+                <md-grid-list
+                        md-cols-xs="2" md-cols-sm="4" md-cols-md="4" md-cols-gt-md="6"
+                        md-row-height-gt-md="3:3" md-row-height="3:3"
+                        md-gutter="5px" md-gutter-gt-sm="5px" >
+                    <md-grid-tile
+                            md-colspan-gt-sm="1"
+                            md-rowspan-gt-sm="1"
+                            ng-repeat="option in gateOptions">
+                        <div layout="row" layout-align="start center">
+                            <md-input-container flex="90" class="md-block">
+                                <label> {{option.name}}({{option.price | number}}원)</label>
+                                <input ng-model="option.price" type="number">
+                                <div class="hint">
+                                    <button type="button" class="md-caption" ng-click="deleteOption()">삭제</button>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </md-grid-tile>
+                    <md-grid-tile
+                            md-colspan-gt-sm="1"
+                            md-rowspan-gt-sm="1"
+                    <div layout="row" layout-align="start center">
+                        <md-button>옵션 추가 하기(Not Yet)</md-button>
+                    </div>
+                    </md-grid-tile>
+                </md-grid-list>
+            </md-content>
+
+            <!--<pre>{{frameOptions}}</pre>-->
+
+            <div>
+                <md-input-container class="md-block">
+                    <label>비고</label>
+                    <textarea ng-model="gateObj.note" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+
+            <md-button class="md-primary md-raised" type="submit"> {{action1}} </md-button>
+            <md-button class="md-warn md-raised" ng-click="action2Process()"> {{action2}} </md-button>
+        </form>
+
+
+        <md-toolbar style="background-color:white; color:black;    height: 32px; min-height:0px;">
+            <h2 class="md-toolbar-tools">
+                <span flex> 거래 이력 </span>
+            </h2>
+        </md-toolbar>
+    </md-content>
+
+</md-whiteframe>

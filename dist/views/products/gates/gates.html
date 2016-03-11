@@ -1,0 +1,36 @@
+<md-whiteframe class="md-whiteframe-3dp"
+               style="max-width:1024px"
+               layout="column" layout-align="center center">
+    <div layout="row" flex layout-align="start center" style="width:100%">
+        <div class="md-title"> <a href="#/product">제품관리</a> > 기성문 관리 </div>
+        <span flex></span>
+        <md-button class="md-raised" href="#/gate-detail/new"> 기성문 등록 </md-button>
+    </div>
+
+    <md-content>
+        <div class="table-responsive">
+            <table class="table md-caption">
+                <thead>
+                <tr>
+                    <th style="text-align: center">종류</th>
+                    <th style="text-align: center">모델</th>
+                    <th style="text-align: center">번호</th>
+                    <th style="text-align: center">폭</th>
+                    <th style="text-align: center">높이</th>
+                    <th style="text-align: center">가격</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-click="goToDetail(ga.$id)" ng-repeat="ga in gates track by $index">
+                    <td style="padding:7px; text-align: center">{{ga.type | frameType}}</td>
+                    <td style="padding:7px; text-align: center">{{ga.doorType | frameDoorType}}</td>
+                    <td style="padding:7px; text-align: end">{{ga.thick}}</td>
+                    <td style="padding:7px; text-align: end">{{ga.width}}</td>
+                    <td style="padding:7px; text-align: end">{{ga.height}}</td>
+                    <td style="padding:7px; text-align: end">{{ga.orgPrice | number}}원</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-content>
+</md-whiteframe>

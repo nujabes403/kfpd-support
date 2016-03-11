@@ -1,0 +1,20 @@
+<div layout="column" class="msgBoard">
+    <md-toolbar flex="none">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>MESSAGE BOARD</span>
+        </h2>
+      </div>
+    </md-toolbar>
+    <md-list flex>
+        <md-list-item href="#/msgBoard/{{userkey}}/{{message.$id}}" class="md-2-line" ng-repeat="message in messages">
+                <div class="md-list-item-text" layout="column">
+                   <h3>제목 : {{ message.title }}</h3>
+                   <h4> {{message.readAt ? '(읽음)' +message.readAt : '(읽지 않음)'}}</h4>
+                 </div>
+        </md-list-item>
+    </md-list>
+    <input ng-model="msgTitle" type="text" placeholder="제목"/>
+    <input ng-model="msgBody" type="text" placeholder="문의사항 내용:"/>
+    <button ng-click="pushMsg()" type="button">SEND</button>
+</div>

@@ -1,0 +1,18 @@
+<div layout="column" class="msgBoard">
+    <md-toolbar flex="none">
+      <div class="md-toolbar-tools">
+        <h2>
+          <span>MESSAGE BOARD ADMIN</span>
+        </h2>
+      </div>
+    </md-toolbar>
+</div>
+<md-list flex>
+    <md-list-item href="#/msgBoard/{{msgData.sender}}/{{msgKey}}" class="md-2-line" ng-repeat="(msgKey,msgData) in unreadMsgs">
+            <div class="md-list-item-text" layout="column">
+               <h3>제목 : {{ msgData.title }}</h3>
+               <h4>발신자 : {{msgData.sender}} </h4>
+             </div>
+    </md-list-item>
+</md-list>
+</div>

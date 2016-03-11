@@ -1,0 +1,28 @@
+<md-whiteframe class="md-whiteframe-3dp"
+               style="max-width:1024px"
+               layout="column" layout-align="center center">
+
+    <div layout="row" flex layout-align="start center" style="width:100%">
+        <div>
+            <a href="#/product">제품관리</a>  >  부속품 관리
+        </div>
+        <span flex></span>
+        <md-button class="md-raised" href="#/part-detail/new"> 부속품 등록 </md-button>
+    </div>
+
+    <md-content layout="row" layout="start stretch" style="width:100%;">
+        <style>.grid {
+            width: 100%;
+            height: 500px;
+        }
+        .grid-align-end {
+            text-align: end;
+        }
+        .grid-align-center {
+            text-align: center;
+        }
+
+        </style>
+        <md-content layout="column" layout="start stretch" flex id="grid1" ui-grid="gridOptions" class="grid"></md-content>
+    </md-content>
+</md-whiteframe>

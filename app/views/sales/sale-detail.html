@@ -1,0 +1,316 @@
+<md-whiteframe class="md-whiteframe-3dp"
+               style="max-width:1024px"
+               layout="column" layout-align="center center">
+
+    <div layout="row" flex layout-align="start center" style="width:100%">
+        <div class="md-title"> {{title}}  </div>
+        <span flex></span>
+        <md-button class="md-raised" href="#/gates">목록</md-button>
+    </div>
+
+    <md-content style="width:100%;">
+        <form name="gateForm" ng-submit="action1Process()">
+            <md-button class="md-primary md-raised" type="submit"> {{action1}} </md-button>
+            <md-button class="md-warn md-raised" ng-click="action2Process()"> {{action2}} </md-button>
+
+            <md-toolbar style="   background-color: white; color: black; height: 32px; min-height:0px;">
+                <h2 class="md-toolbar-tools">
+                    <span flex> 주문 정보 </span>
+                </h2>
+            </md-toolbar>
+            <hr style="margin:0px;"/>
+
+            <div layout="column" style="width:100%; padding:7px;">
+                <div layout-gt-xs="row" flex-gt-xs>
+                    <div>
+                        <label>주문일</label>
+                        <md-datepicker flex-gt-xs ng-model="gateObj.startDate" md-placeholder="Enter date">
+                        </md-datepicker>
+                    </div>
+                    <span flex="10" flex-xs="5"></span>
+                    <div>
+                        <label>출고예정일</label>
+                        <md-datepicker flex-gt-xs ng-model="gateObj.startDate" md-placeholder="Enter date">
+                        </md-datepicker>
+                    </div>
+                </div>
+                <!--<div layout="row" layout-align="start center" flex-gt-xs>-->
+                    <!--<md-input-container class="md-block">-->
+                        <!--<input ng-model="gateObj.taxRate" type="number" placeholder=" 부가세(원)">-->
+                    <!--</md-input-container>-->
+                <!--</div>-->
+            </div>
+
+            <md-content layout="column" style="width:100%; padding:7px;">
+                <form ng-submit="$event.preventDefault()">
+                    <label> 거래처 검색 </label>
+                    <md-autocomplete
+                            ng-disabled="isDisabled"
+                            md-no-cache="noCache"
+                            md-selected-item="selectedItem"
+                            md-search-text-change="searchTextChange(searchText)"
+                            md-search-text="searchText"
+                            md-selected-item-change="selectedItemChange(item)"
+                            md-items="item in querySearch(searchText)"
+                            md-item-text="item.name"
+                            md-min-length="0"
+                            placeholder="거래처를 검색 해주세요">
+                        <md-item-template>
+                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No states matching "{{ctrl.searchText}}" were found.
+                            <a ng-click="newState(searchText)">Create a new one!</a>
+                        </md-not-found>
+                    </md-autocomplete>
+                    <br/>
+                    <!--<md-checkbox ng-model="simulateQuery">Simulate query for results?</md-checkbox>-->
+                    <!--<md-checkbox ng-model="noCache">Disable caching of queries?</md-checkbox>-->
+                    <!--<md-checkbox ng-model="isDisabled">Disable the input?</md-checkbox>-->
+                    <!--<p>By default, <code>md-autocomplete</code> will cache results when performing a query.  After the initial call is performed, it will use the cached results to eliminate unnecessary server requests or lookup logic. This can be disabled above.</p>-->
+                </form>
+            </md-content>
+
+            <div layout="column" style="width:100%; padding:7px;">
+                <div layout-gt-xs="row" flex-gt-xs>
+                    <div layout="column" layout-align="start start">
+                        <label>외상 매출금</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.barSize" type="text" placeholder="외상 매출금">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="column" layout-align="start start">
+                        <label>입금액</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.height" type="number" placeholder="입금액">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="column" layout-align="start start">
+                        <label> 잔액 </label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.height" type="number" placeholder="잔액">
+                            </md-input-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div layout="column" style="width:100%; padding:7px;">
+                <div layout-gt-xs="row" flex-gt-xs>
+                    <div layout="column" layout-align="start start">
+                        <label>외상 매출금</label>
+                        <div layout="row" layout-align="start start">
+                            <md-input-container class="md-block">
+                                <input ng-model="gateObj.barSize" type="text" placeholder="외상 매출금">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="column" layout-align="start start">
+                        <label>출고일</label>
+                        <md-datepicker flex-gt-xs ng-model="gateObj.startDate" md-placeholder="Enter date">
+                        </md-datepicker>
+                    </div>
+                </div>
+            </div>
+
+            <div layout="row" layout-xs="column" style="width:100%; padding:7px;">
+                <md-input-container class="md-block" flex>
+                    <label>비고</label>
+                    <textarea ng-model="gateObj.note" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                </md-input-container>
+            </div>
+            <md-content layout="column">
+                <div layout="row" layout-align="center center">
+                    <span flex> 후렘 </span>
+                    <md-button class="md-raised" ng-click="openDialog($event, '1')"> 일반 </md-button>
+                    <md-button class="md-raised" ng-click="openDialog($event, '2')"> 스텐 </md-button>
+                    <md-button class="md-raised" ng-click="openDialog($event, '3')"> 매립 </md-button>
+                    <md-button class="md-raised" ng-click="openDialog($event, '4')"> 구로 </md-button>
+                    <md-button class="md-raised" ng-click="openDialog($event, '5')"> 아연 </md-button>
+                </div>
+                <div>
+                    <table class="table md-caption">
+                        <thead>
+                        <tr>
+                            <th style="text-align: center">종류</th>
+                            <th style="text-align: center">바폭</th>
+                            <th style="text-align: center">철판</th>
+                            <th style="text-align: center">편개/양개</th>
+                            <th style="text-align: center">폭</th>
+                            <th style="text-align: center">높이</th>
+                            <th style="text-align: center">가격</th>
+                            <th style="text-align: center">수정/삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-click="goToDetail(fr.$id)" ng-repeat="fr in frames track by $index">
+                            <td style="padding:7px; text-align: center">{{fr.type | frameType}}</td>
+                            <td style="padding:7px; text-align: end">{{fr.barMin}}바 ~ {{fr.barMax}}바</td>
+                            <td style="padding:7px; text-align: end">{{fr.thick}}</td>
+                            <td style="padding:7px; text-align: center">{{fr.doorType | frameDoorType}}</td>
+                            <td style="padding:7px; text-align: end">{{fr.width}}</td>
+                            <td style="padding:7px; text-align: end">{{fr.height}}</td>
+                            <td style="padding:7px; text-align: end">{{fr.orgPrice | number}}원</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </md-content>
+
+        <md-content layout="column">
+            <div layout="row" layout-align="center center">
+                <span flex> 문 </span>
+                <md-button class="md-raised" ng-click="openDialog($event, '1')"> 일반 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '2')"> 스텐 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '3')"> 매립 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '4')"> 구로 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '5')"> 아연 </md-button>
+            </div>
+            <div>
+                <table class="table md-caption">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">종류</th>
+                        <th style="text-align: center">바폭</th>
+                        <th style="text-align: center">철판</th>
+                        <th style="text-align: center">편개/양개</th>
+                        <th style="text-align: center">폭</th>
+                        <th style="text-align: center">높이</th>
+                        <th style="text-align: center">가격</th>
+                        <th style="text-align: center">수정/삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-click="goToDetail(fr.$id)" ng-repeat="fr in frames track by $index">
+                        <td style="padding:7px; text-align: center">{{fr.type | frameType}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.barMin}}바 ~ {{fr.barMax}}바</td>
+                        <td style="padding:7px; text-align: end">{{fr.thick}}</td>
+                        <td style="padding:7px; text-align: center">{{fr.doorType | frameDoorType}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.width}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.height}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.orgPrice | number}}원</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </md-content>
+
+        <md-content layout="column">
+            <div layout="row" layout-align="center center">
+                <span flex> 기성문 </span>
+                <md-button class="md-raised" ng-click="openDialog($event, '1')"> 일반 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '2')"> 스텐 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '3')"> 매립 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '4')"> 구로 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '5')"> 아연 </md-button>
+            </div>
+
+            <div>
+                <table class="table md-caption">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">종류</th>
+                        <th style="text-align: center">바폭</th>
+                        <th style="text-align: center">철판</th>
+                        <th style="text-align: center">편개/양개</th>
+                        <th style="text-align: center">폭</th>
+                        <th style="text-align: center">높이</th>
+                        <th style="text-align: center">가격</th>
+                        <th style="text-align: center">수정/삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-click="goToDetail(fr.$id)" ng-repeat="fr in frames track by $index">
+                        <td style="padding:7px; text-align: center">{{fr.type | frameType}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.barMin}}바 ~ {{fr.barMax}}바</td>
+                        <td style="padding:7px; text-align: end">{{fr.thick}}</td>
+                        <td style="padding:7px; text-align: center">{{fr.doorType | frameDoorType}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.width}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.height}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.orgPrice | number}}원</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-content>
+
+        <md-content layout="column">
+            <div layout="row" layout-align="center center">
+                <span flex> 부속품 </span>
+                <md-button class="md-raised" ng-click="openDialog($event, '1')"> 일반 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '2')"> 스텐 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '3')"> 매립 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '4')"> 구로 </md-button>
+                <md-button class="md-raised" ng-click="openDialog($event, '5')"> 아연 </md-button>
+            </div>
+
+            <div>
+                <table class="table md-caption">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">종류</th>
+                        <th style="text-align: center">바폭</th>
+                        <th style="text-align: center">철판</th>
+                        <th style="text-align: center">편개/양개</th>
+                        <th style="text-align: center">폭</th>
+                        <th style="text-align: center">높이</th>
+                        <th style="text-align: center">가격</th>
+                        <th style="text-align: center">수정/삭제</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-click="goToDetail(fr.$id)" ng-repeat="fr in frames track by $index">
+                        <td style="padding:7px; text-align: center">{{fr.type | frameType}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.barMin}}바 ~ {{fr.barMax}}바</td>
+                        <td style="padding:7px; text-align: end">{{fr.thick}}</td>
+                        <td style="padding:7px; text-align: center">{{fr.doorType | frameDoorType}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.width}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.height}}</td>
+                        <td style="padding:7px; text-align: end">{{fr.orgPrice | number}}원</td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </md-content>
+
+            <md-toolbar style="background-color:white; color:black;    height: 32px; min-height:0px;">
+                <h2 class="md-toolbar-tools">
+                    <span flex> 가격 적용일 및 옵션 가격 </span>
+                </h2>
+            </md-toolbar>
+            <hr style="margin:0px;"/>
+            <div layout="column" style="width:100%; padding:7px;">
+                <div layout-gt-xs="row" flex-gt-xs>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <label>단가: {{gateObj.orgPrice | number}}원</label>
+                        <input type="number" ng-model="gateObj.orgPrice">
+                    </md-input-container>
+                    <md-datepicker flex-gt-xs ng-model="gateObj.startDate" md-placeholder="Enter date">
+                    </md-datepicker>
+                </div>
+                <div layout="row" layout-align="start center" flex-gt-xs>
+                    <md-input-container class="md-block">
+                        <input ng-model="gateObj.tax" type="number" placeholder="부가세 별도 가격(원)">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <input ng-model="gateObj.taxRate" type="number" placeholder=" 부가세(원)">
+                    </md-input-container>
+                </div>
+            </div>
+
+            <md-button class="md-primary md-raised" type="submit"> {{action1}} </md-button>
+            <md-button class="md-warn md-raised" ng-click="action2Process()"> {{action2}} </md-button>
+        </form>
+    </md-content>
+
+</md-whiteframe>
